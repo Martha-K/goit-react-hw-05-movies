@@ -18,6 +18,7 @@ const Reviews = () => {
       });
   }, []);
 
+  console.log('review', review)
 
   return (
     <div>
@@ -28,8 +29,8 @@ const Reviews = () => {
             <Content>{el.content}</Content>
           </Div>
         ))) || <Response>hgfvgbh</Response>} */}
-      
-      {review?.results ? (
+
+      {review?.results?.length ? (
         review.results?.map(el => (
           <Div key={el.id}>
             <Response>Author: {el.author}</Response>
@@ -37,7 +38,7 @@ const Reviews = () => {
           </Div>
         ))
       ) : (
-        <Response>hgfvgbh</Response>
+        <Response>Unfortunately, there are no reviews yet :( </Response>
       )}
     </div>
   );
