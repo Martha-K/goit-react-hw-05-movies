@@ -16,7 +16,7 @@ const Reviews = () => {
       .then(res => {
         setReview(res?.data);
       });
-  }, []);
+  }, [movieId]);
 
   console.log('review', review);
 

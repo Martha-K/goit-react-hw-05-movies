@@ -16,7 +16,7 @@ const Cast = () => {
       .then(res => {
         setCast(res?.data);
       });
-  }, []);
+  }, [movieId]);
 
   return (
     <Cart>
