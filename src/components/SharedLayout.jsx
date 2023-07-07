@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Header, Ul, List, StyledLink } from './AppStyled';
 
-
+ 
 export const SharedLayout = () => {
   return (
     <div>
