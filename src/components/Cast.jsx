@@ -4,16 +4,14 @@ import axios from 'axios';
 import { URL } from 'Api/Api';
 import { Img, Cart, Div, ActorName } from './CastStyled';
 
-
 const Cast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState('');
 
-
   useEffect(() => {
     axios
       .get(
-        `${URL}/movie/${movieId}/credits?api_key=29e320b0bf1d174be49080fdcc11784e`
+        `${URL}/movie/${movieId}/credits?api_key=${process.env.REACT_APP_API_KEY}`
       )
       .then(res => {
         setCast(res?.data);

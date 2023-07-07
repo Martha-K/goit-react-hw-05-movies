@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { Suspense } from 'react';
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import {
   Container,
   Ul,
@@ -13,16 +14,13 @@ import {
 } from './MovieDetailsStyled';
 import { URL } from 'Api/Api';
 
-
 const MovieDetails = () => {
   const { movieId } = useParams();
-
-
   const [movie, setMovie] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`${URL}/movie/${movieId}?api_key=29e320b0bf1d174be49080fdcc11784e`)
+      .get(`${URL}/movie/${movieId}?api_key=${process.env.REACT_APP_API_KEY}`)
       .then(res => {
         setMovie(res?.data);
       });
@@ -51,7 +49,6 @@ const MovieDetails = () => {
           </p>
         </Div>
       </Container>
-
       <Ul>
         <Li>
           <StyledLink to="cast">Cast</StyledLink>
@@ -60,7 +57,9 @@ const MovieDetails = () => {
           <StyledLink to="reviews">Reviews</StyledLink>
         </Li>
       </Ul>
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

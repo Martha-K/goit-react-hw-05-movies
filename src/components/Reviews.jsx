@@ -11,25 +11,17 @@ const Reviews = () => {
   useEffect(() => {
     axios
       .get(
-        `${URL}/movie/${movieId}/reviews?api_key=29e320b0bf1d174be49080fdcc11784e`
+        `${URL}/movie/${movieId}/reviews?api_key=${process.env.REACT_APP_API_KEY}`
       )
       .then(res => {
         setReview(res?.data);
       });
   }, []);
 
-  console.log('review', review)
+  console.log('review', review);
 
   return (
     <div>
-      {/* {(review.results &&
-        review.results.map(el => (
-          <Div key={el.id}>
-            <Response>Author: {el.author}</Response>
-            <Content>{el.content}</Content>
-          </Div>
-        ))) || <Response>hgfvgbh</Response>} */}
-
       {review?.results?.length ? (
         review.results?.map(el => (
           <Div key={el.id}>

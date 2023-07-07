@@ -1,17 +1,18 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { URL } from 'Api/Api';
 import { List, Ul, StyledLink, Title } from './HomeStyled';
-
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    axios.get(`${URL}/trending/all/day?api_key=29e320b0bf1d174be49080fdcc11784e`).then(res => {
-      setMovies(res.data.results);
-    });
+    axios
+      .get(`${URL}/trending/all/day?api_key=${process.env.REACT_APP_API_KEY}`)
+      .then(res => {
+        setMovies(res.data.results);
+      });
+    console.log('process.env', process.env);
   }, []);
 
   return (

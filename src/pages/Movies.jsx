@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { URL } from 'Api/Api';
 import { Search, Input, Button, List, Ul, StyledLink } from './MoviesStyled';
 
@@ -11,7 +10,7 @@ const Movies = () => {
   const onSearch = search => {
     axios
       .get(
-        `${URL}/search/movie?query=${search}&api_key=29e320b0bf1d174be49080fdcc11784e`
+        `${URL}/search/movie?query=${search}&api_key=${process.env.REACT_APP_API_KEY}`
       )
       .then(res => {
         setMovies(res.data.results);
