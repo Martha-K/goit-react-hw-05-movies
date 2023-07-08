@@ -9,9 +9,11 @@ const Movies = () => {
 
   const onSearch = search => {
     axios
-      .get(
-        `${URL}/search/movie?query=${search}&api_key=${process.env.REACT_APP_API_KEY}`
-      )
+      .get(`${URL}/search/movie?query=${search}`, {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyOWUzMjBiMGJmMWQxNzRiZTQ5MDgwZmRjYzExNzg0ZSIsInN1YiI6IjY0OTJmZGI1ZjlhYTQ3MDEyNTI4ZWUzOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ORt8gsjacWQJrEciUN7bflQ7U3K2KgSN_HxgKWXEhr4`,
+        },
+      })
       .then(res => {
         setMovies(res.data.results);
       });

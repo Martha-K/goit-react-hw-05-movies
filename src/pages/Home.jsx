@@ -8,11 +8,14 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get(`${URL}/trending/all/day?api_key=${process.env.REACT_APP_API_KEY}`)
+      .get(`${URL}/trending/all/day`, {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyOWUzMjBiMGJmMWQxNzRiZTQ5MDgwZmRjYzExNzg0ZSIsInN1YiI6IjY0OTJmZGI1ZjlhYTQ3MDEyNTI4ZWUzOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ORt8gsjacWQJrEciUN7bflQ7U3K2KgSN_HxgKWXEhr4`,
+        },
+      })
       .then(res => {
         setMovies(res.data.results);
       });
-    console.log('process.env', process.env);
   }, []);
 
   return (

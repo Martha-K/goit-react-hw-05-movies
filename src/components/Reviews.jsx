@@ -10,15 +10,16 @@ const Reviews = () => {
 
   useEffect(() => {
     axios
-      .get(
-        `${URL}/movie/${movieId}/reviews?api_key=${process.env.REACT_APP_API_KEY}`
-      )
+      .get(`${URL}/movie/${movieId}/reviews`, {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyOWUzMjBiMGJmMWQxNzRiZTQ5MDgwZmRjYzExNzg0ZSIsInN1YiI6IjY0OTJmZGI1ZjlhYTQ3MDEyNTI4ZWUzOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ORt8gsjacWQJrEciUN7bflQ7U3K2KgSN_HxgKWXEhr4`,
+        },
+      })
       .then(res => {
         setReview(res?.data);
       });
   }, [movieId]);
 
-  console.log('review', review);
 
   return (
     <div>
