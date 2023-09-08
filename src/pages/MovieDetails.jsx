@@ -33,9 +33,6 @@ const MovieDetails = () => {
       });
   }, [movieId]);
 
-  console.log('location', location)
-  console.log('backLocationRef', backLocationRef)
-
   return (
     <>
       <LinkToBack to={backLocationRef.current}> ←Turn back</LinkToBack>

@@ -2,14 +2,13 @@ import { useState } from 'react';
 import axios from 'axios';
 import { URL } from 'Api/Api';
 import { Search, Input, Button, List, Ul, StyledLink } from './MoviesStyled';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
-  const [search, setSearch] = useState('');
-
-  const location = useLocation()
-
+  const location = useLocation();
+  const [search, setSearch] = useSearchParams();
+  const movieId = search.get('movieId') ?? '';
 
   const onSearch = search => {
     axios
@@ -23,14 +22,18 @@ const Movies = () => {
       });
   };
 
+  const updateQueryString = evt => {
+    const movieIdValue = evt.target.value;
+    if (movieIdValue === '') {
+      return setSearch({});
+    }
+    setSearch({ movieId: movieIdValue });
+  };
+
   return (
     <>
       <Search>
-        <Input
-          type="text"
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-        />
+        <Input type="text" value={movieId} onChange={updateQueryString} />
         <Button type="button" onClick={onSearch}>
           Пошук
         </Button>
@@ -39,7 +42,7 @@ const Movies = () => {
           <Ul>
             {movies.map(el => (
               <List key={el.id}>
-                <StyledLink to={`/movies/${el.id}`} state={{from: location}}>
+                <StyledLink to={`/movies/${el.id}`} state={{ from: location }}>
                   {el.title ? el.title : el.name}
                 </StyledLink>
               </List>
