@@ -23,6 +23,15 @@ export const Li = styled.li`
 export const Img = styled.img`
   width: 300px;
   border: 2px solid black;
+
+`;
+
+export const LinkToBack = styled(Link)`
+  color: blue;
+  text-decoration: none;
+  font-size: 15px;
+  margin: 10px;
+
 `;
 
 export const NameMovie = styled.p`

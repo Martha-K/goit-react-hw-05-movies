@@ -2,10 +2,14 @@ import { useState } from 'react';
 import axios from 'axios';
 import { URL } from 'Api/Api';
 import { Search, Input, Button, List, Ul, StyledLink } from './MoviesStyled';
+import { useLocation } from 'react-router-dom';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState('');
+
+  const location = useLocation()
+
 
   const onSearch = search => {
     axios
@@ -35,7 +39,7 @@ const Movies = () => {
           <Ul>
             {movies.map(el => (
               <List key={el.id}>
-                <StyledLink to={`/movies/${el.id}`}>
+                <StyledLink to={`/movies/${el.id}`} state={{from: location}}>
                   {el.title ? el.title : el.name}
                 </StyledLink>
               </List>

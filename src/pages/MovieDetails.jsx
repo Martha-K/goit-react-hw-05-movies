@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Suspense } from 'react';
-import { useEffect, useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { useEffect, useState, useRef } from 'react';
+import { Outlet, useParams, useLocation } from 'react-router-dom';
 import {
   Container,
   Ul,
@@ -11,11 +11,14 @@ import {
   NameMovie,
   MovieInfo,
   StyledLink,
+  LinkToBack,
 } from './MovieDetailsStyled';
 import { URL } from 'Api/Api';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
+  const location = useLocation();
+  const backLocationRef = useRef(location.state?.from ?? '/movies');
   const [movie, setMovie] = useState([]);
 
   useEffect(() => {
@@ -30,8 +33,12 @@ const MovieDetails = () => {
       });
   }, [movieId]);
 
+  console.log('location', location)
+  console.log('backLocationRef', backLocationRef)
+
   return (
     <>
+      <LinkToBack to={backLocationRef.current}> ←Turn back</LinkToBack>
       <Container>
         {movie?.poster_path && (
           <Img
