@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { URL } from 'Api/Api';
 import { Search, Input, Button, List, Ul, StyledLink } from './MoviesStyled';
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
