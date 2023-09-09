@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { URL } from 'Api/Api';
 import { Search, Input, Button, List, Ul, StyledLink } from './MoviesStyled';
@@ -9,6 +9,10 @@ const Movies = () => {
   const location = useLocation();
   const [search, setSearch] = useSearchParams();
   const movieId = search.get('movieId') ?? '';
+
+  useEffect(() => {
+    movieId && onSearch(movieId);
+  }, [])
 
   const onSearch = search => {
     axios
@@ -21,7 +25,6 @@ const Movies = () => {
         setMovies(res.data.results);
       });
   };
-
   const updateQueryString = evt => {
     const movieIdValue = evt.target.value;
     if (movieIdValue === '') {
@@ -29,14 +32,17 @@ const Movies = () => {
     }
     setSearch({ movieId: movieIdValue });
   };
-
+  const handleSubmit = event => {
+    event.preventDefault();
+    onSearch(movieId); 
+  };
   return (
     <>
       <Search>
-        <Input type="text" value={movieId} onChange={updateQueryString} />
-        <Button type="button" onClick={onSearch}>
-          Пошук
-        </Button>
+        <form onSubmit={handleSubmit}>
+          <Input type="text" value={movieId} onChange={updateQueryString} />
+          <Button type="submit">Пошук</Button>
+        </form>
 
         <div>
           <Ul>

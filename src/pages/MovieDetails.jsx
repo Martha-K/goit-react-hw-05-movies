@@ -18,7 +18,7 @@ import { URL } from 'Api/Api';
 const MovieDetails = () => {
   const { movieId } = useParams();
   const location = useLocation();
-  const backLocationRef = useRef(location.state?.from ?? '/movies');
+  const backLocationRef = useRef(location.state?.from ?? '/');
   const [movie, setMovie] = useState([]);
 
   useEffect(() => {
@@ -30,13 +30,16 @@ const MovieDetails = () => {
       })
       .then(res => {
         setMovie(res?.data);
+      })
+      .catch(error => {
+        console.error('Error fetching movie details:', error);
       });
   }, [movieId]);
 
   return (
     <>
       <LinkToBack to={backLocationRef.current}> ←Turn back</LinkToBack>
-      <Container>
+      {<Container>
         {movie?.poster_path && (
           <Img
             src={`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`}
@@ -51,12 +54,12 @@ const MovieDetails = () => {
           <p>{movie?.overview}</p>
           <MovieInfo>Genres</MovieInfo>
           <p>
-            {movie.genres?.map(el => (
+            {movie?.genres?.map(el => (
               <li key={el.id}>{el.name}</li>
             ))}
           </p>
         </Div>
-      </Container>
+      </Container>}
       <Ul>
         <Li>
           <StyledLink to="cast">Cast</StyledLink>

@@ -8,7 +8,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get(`${URL}/trending/all/day`, {
+      .get(`${URL}/trending/movie/day`, {
         headers: {
           Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyOWUzMjBiMGJmMWQxNzRiZTQ5MDgwZmRjYzExNzg0ZSIsInN1YiI6IjY0OTJmZGI1ZjlhYTQ3MDEyNTI4ZWUzOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ORt8gsjacWQJrEciUN7bflQ7U3K2KgSN_HxgKWXEhr4`,
         },
@@ -25,7 +25,7 @@ const Home = () => {
         {movies.map(el => (
           <List key={el.id}>
             <StyledLink to={`movies/${el.id}`}>
-              {el.title ? el.title : el.name}
+              {el.title || el.name}
             </StyledLink>
           </List>
         ))}
